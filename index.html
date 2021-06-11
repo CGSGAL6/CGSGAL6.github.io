@@ -21,27 +21,37 @@
             color: bisque;
             background-color: rgb(68, 110, 116);
             font-size: 30px;
-            margin-top: 20%;
-            margin-left: 10%;
+            margin-top: 0%;
+            margin-left: 0%;
+            padding-left: 0%;
         }
 
         #pr {
             background-color: rgb(68, 110, 116);
             margin-top: 5%;
-            margin-left: 10%;
+            margin-left: 0%;
             margin-right: 60%;
             font-family: 'Times New Roman', Times, serif;
             color: bisque;
             background-color: rgb(68, 110, 116);
             font-size: 50px;
         }
+
+        .line {
+            border-left: 20px solid rgb(68, 110, 116);
+            /* Параметры линии */
+            margin-left: 15px;
+            /* Отступ слева */
+            padding-left: 15px;
+            /* Расстояние от линии до текста */
+        }
     </style>
 </head>
 
-<body>
+<body class="line">
 
     <div>
         <p id="pr">My projects</p>
-        <a href="mandl/a.html" id="ssylka">Mandelbrot</a>
+        <button onclick="window.location.href='./mandl/a.html'" id="ssylka">Mandelbrot</button>
     </div>
 </body>
