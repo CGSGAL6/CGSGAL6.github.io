@@ -14,6 +14,7 @@
             overflow: auto;
             width: 100%;
             height: 100%;
+            background-image: url("new.jpg");
         }
 
         #ssylka {
@@ -23,7 +24,7 @@
             font-size: 30px;
             margin-top: 0%;
             margin-left: 0%;
-            padding-left: 0%;
+            padding-left: 0.5%;
         }
 
         #ssylka:hover {
@@ -34,34 +35,99 @@
             margin-top: 0%;
             margin-left: 0%;
             padding-left: 0%;
+            transition-duration: 0.4s;
         }
 
         #pr {
             background-color: rgb(68, 110, 116);
-            margin-top: 5%;
+            margin-top: 3%;
             margin-left: 0%;
             margin-right: 60%;
             font-family: 'Times New Roman', Times, serif;
             color: bisque;
             background-color: rgb(68, 110, 116);
-            font-size: 50px;
+            font-size: 40px;
         }
 
         .line {
             border-left: 20px solid rgb(68, 110, 116);
-            /* Параметры линии */
-            margin-left: 15px;
-            /* Отступ слева */
-            padding-left: 15px;
-            /* Расстояние от линии до текста */
+            margin-left: 1%;
+            padding-left: 1%;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .block {
+            margin-top: 2%;
+
+        }
+
+        #header1 {
+            margin-top: 3%;
+            border-right: 40px solid bisque;
+            margin-right: 30%;
+            background-color: rgb(68, 110, 116);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .head {
+            font-family: 'Times New Roman', Times, serif;
+            color: bisque;
+            font-size: 50px;
+            margin-top: 2%;
+        }
+
+        .discr {
+            color: bisque;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 20px;
+            margin-top: -3%;
+        }
+
+        #avatar {
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+            border: 5px solid bisque;
+        }
+
+        p {
+            padding-left: 0.5%;
         }
     </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/core.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/md5.js"></script>
+    <script>
+        function setAvatarURL() {
+            let ava = document.getElementById("avatar");
+            ava.src = "https://www.gravatar.com/avatar/" + CryptoJS.MD5("sasha2004998@gmail.com").toString();
+        }
+    </script>
+
 </head>
 
-<body class="line">
-
+<body onload="setAvatarURL();" class="line">
     <div>
-        <p id="pr">My projects</p>
-        <button onclick="window.location.href='./mandl/a.html'" id="ssylka">Mandelbrot</button>
-    </div>
+
+        <div id="header1">
+            <p class="head"><img id="avatar">Lanovaya Alexandra 10-6</p>
+            <p class="discr">
+                Works are made during the summer educational and research practise in the Computer
+                Graphics Support Group of the Physics and Mathematics Lyceum 30
+            </p>
+        </div>
+        <div>
+            <p id="pr">My projects:</p>
+        </div>
+        <div>
+            <button onclick="window.location.href='./mandl/a.html'" id="ssylka">Mandelbrot</button>
+        </div>
+        <div class="block">
+            <button onclick="window.location.href='./Calender/b.html'" id="ssylka">Calender</button>
+        </div>
 </body>

@@ -45,7 +45,7 @@
         mousePosX = tevent.clientX / parameters.screenWidth;
         mousePosY = tevent.clientY / parameters.screenHeight;
 
-        var aspectRatio = parameters.screenWidth / parameters.screenHeight;
+        let aspectRatio = parameters.screenWidth / parameters.screenHeight;
         document.getElementById("divFractalPosX").innerHTML = dragX + (-1 + 2 * (mousePosX)) * aspectRatio * zoom;
         document.getElementById("divFractalPosY").innerHTML = dragY + (-1 + 2 * (1.0 - mousePosY)) * zoom;
         document.getElementById("divFirstClick").innerHTML = "";
@@ -126,9 +126,9 @@
 
             float scale = GetMandelbrot(position, zoom, offset);
             if ( scale == 0.0)
-                gl_FragColor = vec4( 0.0, 0.0, 0.0, 1.0 );
+                gl_FragColor = vec4( 1.0, 1.0, 1.0, 1.0 );
             else
-                gl_FragColor = vec4( 0.3, 0.1, 0.7, 0.0 ) * scale + vec4(0.3, 0.1, 0.4, 1.0);
+                gl_FragColor = vec4( 0.9, 0.2, 1.0, 0.0 ) * scale + vec4(0.0, 0.0, 0.0, 1.0);
 			}
  
 		</script>
