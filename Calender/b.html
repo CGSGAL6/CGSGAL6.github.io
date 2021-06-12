@@ -6,75 +6,76 @@
     <title>Calender</title>
 
     <style>
-        html,
-        body {
-            background-color: #ffffff;
-            color: white;
-            margin: 0px;
-            overflow: auto;
-            width: 100%;
-            height: 100%;
-        }
-
-        .look-calendar {
-            width: 220px;
-            border: 1px solid #c0c0c0;
-            padding: 6px;
-            margin: 0 auto;
-        }
-
-        #calendar {
-            width: 100%;
-            line-height: 1.2em;
+        #calendar2 {
+            width: 30%;
+            line-height: 2em;
             font-size: 15px;
             text-align: center;
-            border-spacing: 0px;
+            background-color: rgb(82, 81, 116);
+            font-family: roboto condensed, sans-serif;
         }
 
-        #calendar tr.dn td {
-            font-size: 15px;
-        }
-
-        #calendar thead tr:last-child {
+        #calendar2 thead tr:last-child {
             font-size: small;
-            color: #555555;
+            color: rgb(255, 255, 255);
         }
 
-        #calendar thead tr:nth-child(1) td:nth-child(2) {
-            color: #323232;
+        #calendar2 thead tr:nth-child(1) td:nth-child(2) {
+            color: rgb(255, 255, 255);
         }
 
-        #calendar thead tr:nth-child(1) td:nth-child(1):hover,
-        #calendar thead tr:nth-child(1) td:nth-child(3):hover {
+        #calendar2 thead tr:nth-child(1) td:nth-child(1):hover,
+        #calendar2 thead tr:nth-child(1) td:nth-child(3):hover {
             cursor: pointer;
+            color: rgb(241, 146, 36);
         }
 
-        #calendar tbody td {
-            color: #2c567a;
+        #calendar2 thead tr:nth-child(1) td:nth-child(1),
+        #calendar2 thead tr:nth-child(1) td:nth-child(3) {
+            color: white;
         }
 
-        #calendar tbody td:nth-child(n+6),
-        #calendar .holiday {
-            color: #e78c5c;
+        #calendar2 tbody td {
+            color: rgb(255, 255, 255);
         }
 
-        #calendar tbody td.today {
-            background: #dc0000;
+        #calendar2 tbody td:nth-child(n+6),
+        #calendar2 .holiday {
+            color: rgb(241, 146, 36);
+        }
+
+        #calendar2 tbody td.today {
+            background: rgb(241, 146, 36);
+            border-radius: 50%;
             color: #fff;
         }
     </style>
-</head>
 
-<body>
+    <table id="calendar2">
+        <thead>
+            <tr>
+                <td>‹
+                <td colspan="5">
+                <td>›
+            <tr>
+                <td>Mon
+                <td>Tue
+                <td>Wed
+                <td>Thu
+                <td>Fri
+                <td>Sat
+                <td>Sun
+        <tbody>
+    </table>
 
     <script>
-        function calendar(id, year, month) {
+        function Calendar2(id, year, month) {
             var Dlast = new Date(year, month + 1, 0).getDate(),
                 D = new Date(year, month, Dlast),
                 DNlast = new Date(D.getFullYear(), D.getMonth(), Dlast).getDay(),
                 DNfirst = new Date(D.getFullYear(), D.getMonth(), 1).getDay(),
                 calendar = '<tr>',
-                month = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
+                month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
             if (DNfirst != 0) {
                 for (var i = 1; i < DNfirst; i++) calendar += '<td>';
             } else {
@@ -90,45 +91,22 @@
                     calendar += '<tr>';
                 }
             }
-            for (var i = DNlast; i < 7; i++) calendar += '<td> ';
+            for (var i = DNlast; i < 7; i++) calendar += '<td>&nbsp;';
             document.querySelector('#' + id + ' tbody').innerHTML = calendar;
             document.querySelector('#' + id + ' thead td:nth-child(2)').innerHTML = month[D.getMonth()] + ' ' + D.getFullYear();
             document.querySelector('#' + id + ' thead td:nth-child(2)').dataset.month = D.getMonth();
             document.querySelector('#' + id + ' thead td:nth-child(2)').dataset.year = D.getFullYear();
             if (document.querySelectorAll('#' + id + ' tbody tr').length < 6) {
-                // чтобы при перелистывании месяцев не "подпрыгивала" вся страница, добавляется ряд пустых клеток. Итог: всегда 6 строк для цифр
-                document.querySelector('#' + id + ' tbody').innerHTML += '<tr><td> <td> <td> <td> <td> <td> <td> ';
+                document.querySelector('#' + id + ' tbody').innerHTML += '<tr><td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;';
             }
         }
-        calendar("calendar", new Date().getFullYear(), new Date().getMonth());
-        // переключатель минус месяц
-        document.querySelector('#calendar thead tr:nth-child(1) td:nth-child(1)').onclick = function () {
-            calendar("calendar", document.querySelector('#calendar thead td:nth-child(2)').dataset.year, parseFloat(document.querySelector('#calendar thead td:nth-child(2)').dataset.month) - 1);
+        Calendar2("calendar2", new Date().getFullYear(), new Date().getMonth());
+        document.querySelector('#calendar2 thead tr:nth-child(1) td:nth-child(1)').onclick = function () {
+            Calendar2("calendar2", document.querySelector('#calendar2 thead td:nth-child(2)').dataset.year, parseFloat(document.querySelector('#calendar2 thead td:nth-child(2)').dataset.month) - 1);
         }
-        // переключатель плюс месяц
-        document.querySelector('#calendar thead tr:nth-child(1) td:nth-child(3)').onclick = function () {
-            calendar("calendar", document.querySelector('#calendar thead td:nth-child(2)').dataset.year, parseFloat(document.querySelector('#calendar thead td:nth-child(2)').dataset.month) + 1);
+        document.querySelector('#calendar2 thead tr:nth-child(1) td:nth-child(3)').onclick = function () {
+            Calendar2("calendar2", document.querySelector('#calendar2 thead td:nth-child(2)').dataset.year, parseFloat(document.querySelector('#calendar2 thead td:nth-child(2)').dataset.month) + 1);
         }
     </script>
-    <div class="look-calendar">
-        <table id="calendar">
-            <thead>
-                <tr>
-                    <td><b>‹</b>
-                    <td colspan="5">
-                    <td><b>›</b>
-                <tr class="dn">
-                    <td>Пн
-                    <td>Вт
-                    <td>Ср
-                    <td>Чт
-                    <td>Пт
-                    <td>Сб
-                    <td>Вс
-            </thead>
-            <tbody></tbody>
-        </table>
-    </div>
-</body>
 
 </html>
