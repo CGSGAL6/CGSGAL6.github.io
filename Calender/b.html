@@ -6,7 +6,7 @@
     <title>Calender</title>
 
     <style>
-        #calendar2 {
+        #calendar {
             width: 30%;
             line-height: 2em;
             font-size: 15px;
@@ -15,43 +15,43 @@
             font-family: roboto condensed, sans-serif;
         }
 
-        #calendar2 thead tr:last-child {
+        #calendar thead tr:last-child {
             font-size: small;
             color: rgb(255, 255, 255);
         }
 
-        #calendar2 thead tr:nth-child(1) td:nth-child(2) {
+        #calendar thead tr:nth-child(1) td:nth-child(2) {
             color: rgb(255, 255, 255);
         }
 
-        #calendar2 thead tr:nth-child(1) td:nth-child(1):hover,
-        #calendar2 thead tr:nth-child(1) td:nth-child(3):hover {
+        #calendar thead tr:nth-child(1) td:nth-child(1):hover,
+        #calendar thead tr:nth-child(1) td:nth-child(3):hover {
             cursor: pointer;
             color: rgb(241, 146, 36);
         }
 
-        #calendar2 thead tr:nth-child(1) td:nth-child(1),
-        #calendar2 thead tr:nth-child(1) td:nth-child(3) {
+        #calendar thead tr:nth-child(1) td:nth-child(1),
+        #calendar thead tr:nth-child(1) td:nth-child(3) {
             color: white;
         }
 
-        #calendar2 tbody td {
+        #calendar tbody td {
             color: rgb(255, 255, 255);
         }
 
-        #calendar2 tbody td:nth-child(n+6),
-        #calendar2 .holiday {
+        #calendar tbody td:nth-child(n+6),
+        #calendar .holiday {
             color: rgb(241, 146, 36);
         }
 
-        #calendar2 tbody td.today {
+        #calendar tbody td.today {
             background: rgb(241, 146, 36);
             border-radius: 50%;
             color: #fff;
         }
     </style>
 
-    <table id="calendar2">
+    <table id="calendar">
         <thead>
             <tr>
                 <td>‹
@@ -69,7 +69,7 @@
     </table>
 
     <script>
-        function Calendar2(id, year, month) {
+        function Calendar(id, year, month) {
             var Dlast = new Date(year, month + 1, 0).getDate(),
                 D = new Date(year, month, Dlast),
                 DNlast = new Date(D.getFullYear(), D.getMonth(), Dlast).getDay(),
@@ -100,12 +100,12 @@
                 document.querySelector('#' + id + ' tbody').innerHTML += '<tr><td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;';
             }
         }
-        Calendar2("calendar2", new Date().getFullYear(), new Date().getMonth());
-        document.querySelector('#calendar2 thead tr:nth-child(1) td:nth-child(1)').onclick = function () {
-            Calendar2("calendar2", document.querySelector('#calendar2 thead td:nth-child(2)').dataset.year, parseFloat(document.querySelector('#calendar2 thead td:nth-child(2)').dataset.month) - 1);
+        Calendar("calendar", new Date().getFullYear(), new Date().getMonth());
+        document.querySelector('#calendar thead tr:nth-child(1) td:nth-child(1)').onclick = function () {
+            Calendar("calendar", document.querySelector('#calendar thead td:nth-child(2)').dataset.year, parseFloat(document.querySelector('#calendar thead td:nth-child(2)').dataset.month) - 1);
         }
-        document.querySelector('#calendar2 thead tr:nth-child(1) td:nth-child(3)').onclick = function () {
-            Calendar2("calendar2", document.querySelector('#calendar2 thead td:nth-child(2)').dataset.year, parseFloat(document.querySelector('#calendar2 thead td:nth-child(2)').dataset.month) + 1);
+        document.querySelector('#calendar thead tr:nth-child(1) td:nth-child(3)').onclick = function () {
+            Calendar("calendar", document.querySelector('#calendar thead td:nth-child(2)').dataset.year, parseFloat(document.querySelector('#calendar thead td:nth-child(2)').dataset.month) + 1);
         }
     </script>
 
