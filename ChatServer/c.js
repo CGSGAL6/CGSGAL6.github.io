@@ -1,25 +1,58 @@
 const http = require("http");
 const fs = require('fs').promises;
-const host = 'localhost';
-const port = 8000;
-let cFile;
+
+// requests handle
+let messages = [];
 
 const requestListener = function (req, res) {
-    res.setHeader("Content-Type", "text/html");
-    res.writeHead(200);
-    res.end(cFile);
+    console.log(
+        `Request: ${req.method}, ${req.url}.`
+    );
+
+    if (req.url === "/") {
+        console.log(`${__dirname}/c.css`);
+        fs.readFile(`${__dirname}/c.html`)
+            .then((html_content) => {
+                res.setHeader("Content-Type", "text/html");
+                res.writeHead(200);
+                res.end(html_content);
+            });
+    } else if (req.url.endsWith(".css")) {
+        fs.readFile(`${__dirname}/c.css`)
+            .then((css_content) => {
+                res.setHeader("Content-Type", "text/css");
+                res.writeHead(200);
+                res.end(css_content);
+            });
+    } else if (req.url === "/msg" && req.method === "POST") {
+        let data = "";
+        req.once('data', chunk => {
+            data += chunk;
+        })
+        req.once('end', () => {
+            let new_msg = JSON.parse(data);
+            messages.push(new_msg);
+            console.log(`New msg added - { name: "${new_msg.name}", message: "${new_msg.message}" }.`);
+            res.end();
+        })
+    } else if (req.url === "/msg" && req.method === "GET") {
+        let messages_pane_text = "";
+
+        for (message of messages) {
+            messages_pane_text += `${message.name}: ${message.message}<br>`;
+        }
+
+        res.setHeader("Content-Type", "text");
+        res.writeHead(200);
+        res.end(messages_pane_text);
+    } else {
+        res.writeHead(500);
+        res.end("Error, unsupported");
+        return;
+    }
 };
 
+// creating server
+const port = 8000;
 const server = http.createServer(requestListener);
-
-fs.readFile("z:/fractal/CGSGAL6.github.io/index.html")
-    .then(contents => {
-        cFile = contents;
-        server.listen(port, host, () => {
-            console.log(`Server is running on http://${host}:${port}`);
-        });
-    })
-    .catch(err => {
-        console.error(`Could not read index.html file: ${err}`);
-        process.exit(1);
-    });
+server.listen(port);
