@@ -1,54 +1,64 @@
-<!DOCTYPE html>
+<!doctype html>
+<html>
 
 <head>
-    <title>My Website</title>
-    <style>
-        *,
-        html {
-            margin: 0;
-            padding: 0;
-            border: 0;
+    <title>Messenger</title>
+    <link rel="stylesheet" href="c.css">
+    <script>
+        let msgtexts = "";
+        function sendMessage() {
+            let name_changer = document.getElementById("name");
+            let message_changer = document.getElementById("message");
+
+            let msg = { name: name_changer.value, message: message_changer.value };
+            fetch("/msg", {
+                method: "POST",
+                headers: { "Contet-Type": "application/json;charset=utf-8" },
+                body: JSON.stringify(msg)
+            });
+            document.getElementById("message").value = "";
         }
 
-        html {
-            width: 100%;
-            height: 100%;
+        function getMessages() {
+            fetch("/msg", { method: "GET" })
+                .then((result) => {
+                    return result.text();
+                })
+                .then((text) => {
+                    let messages_pane = document.getElementById("messages_pane");
+                    let msgs = JSON.parse(text);
+                    let msgtext_tmp = "";
+
+                    for (message of msgs)
+                        msgtext_tmp += `<div class="msgs"> ${message.name}: ${message.message} </div><br>`;
+                    if (msgtext_tmp != msgtexts)
+                        messages_pane.innerHTML = msgtexts = msgtext_tmp;
+                    tick();
+                });
         }
 
-        body {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            background-color: rgb(236, 152, 42);
+        function tick() {
+            setTimeout(getMessages, 500);
         }
 
-        .center {
-            width: 100%;
-            height: 50%;
-            margin: 0;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-family: "Trebuchet MS", Helvetica, sans-serif;
-            text-align: center;
+        function runScript(event) {
+            if (event.which == 13 || event.keyCode == 13) {
+                sendMessage();
+            }
         }
 
-        h1 {
-            font-size: 144px;
-        }
-
-        p {
-            font-size: 64px;
-        }
-    </style>
+    </script>
 </head>
 
-<body>
-    <div class="center">
-        <h1>Hello Again!</h1>
-        <p>This is served from a file</p>
+<body onload="tick();">
+    <div class="cont">
+        <p id="header">Chat</p>
+        <input placeholder="name" type="text" id="name" /><br>
+        <input placeholder="enter message" type="text" id="message" onkeypress="runScript(event)" /><br>
+        <!-- //<button onclick="sendMessage();" id="send_msg_bttn">Send Message</button> -->
+        <div style="overflow-y: scroll; height: 70vh; width: 50vw;" id="messages_scrool">
+            <p id="messages_pane"></p>
+        </div>
     </div>
 </body>
 

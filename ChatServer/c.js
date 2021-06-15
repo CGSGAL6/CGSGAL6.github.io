@@ -36,15 +36,9 @@ const requestListener = function (req, res) {
             res.end();
         })
     } else if (req.url === "/msg" && req.method === "GET") {
-        let messages_pane_text = "";
-
-        for (message of messages) {
-            messages_pane_text += `${message.name}: ${message.message}<br>`;
-        }
-
         res.setHeader("Content-Type", "text");
         res.writeHead(200);
-        res.end(messages_pane_text);
+        res.end(JSON.stringify(messages));
     } else {
         res.writeHead(500);
         res.end("Error, unsupported");
