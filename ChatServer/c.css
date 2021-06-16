@@ -84,6 +84,8 @@
     font-size: 2.7vh; 
     font-family: roboto condensed, sans-serif;
     color: rgba(229, 255, 254, .7);
+    display: flex;
+    flex-direction: column-reverse;
 }
 @keyframes col {
     0%   {color:rgba(26, 146, 142, 0.0636);}
@@ -118,7 +120,7 @@
     text-align: justify;
     font-family: roboto condensed, sans-serif; 
 }
-.msgs {
+.msgs_last {
     animation-name: col;
     animation-duration: 1s;
 }

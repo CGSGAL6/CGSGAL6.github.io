@@ -6,18 +6,36 @@
     <link rel="stylesheet" href="c.css">
     <script>
         let msgtexts = "";
+        let scrolled = false;
+        function updateScroll() {
+            if (!scrolled) {
+                var element = document.getElementById("messages_scrool");
+                element.scrollTop = element.scrollHeight;
+            }
+        }
+        $("#messages_scrool").on('scroll', function () {
+            scrolled = true;
+        });
         function sendMessage() {
             let name_changer = document.getElementById("name");
             let message_changer = document.getElementById("message");
 
             let msg = { name: name_changer.value, message: message_changer.value };
+            message_changer.value = "";
             fetch("/msg", {
                 method: "POST",
                 headers: { "Contet-Type": "application/json;charset=utf-8" },
                 body: JSON.stringify(msg)
             });
-            document.getElementById("message").value = "";
         }
+        function lengths(obj) {
+            var size = 0,
+                key;
+            for (key in obj) {
+                if (obj.hasOwnProperty(key)) size++;
+            }
+            return size;
+        };
 
         function getMessages() {
             fetch("/msg", { method: "GET" })
@@ -29,8 +47,9 @@
                     let msgs = JSON.parse(text);
                     let msgtext_tmp = "";
 
-                    for (message of msgs)
-                        msgtext_tmp += `<div class="msgs"> ${message.name}: ${message.message} </div><br>`;
+                    for (var i = 0; i < lengths(msgs) - 1; i++) /*message of msgs)*/
+                        msgtext_tmp += `<div class="msgs"> ${msgs[i].name}: ${msgs[i].message} </div><br>`;
+                    msgtext_tmp += `<div class="msgs_last"> ${msgs[i].name}: ${msgs[i].message} </div><br>`;
                     if (msgtext_tmp != msgtexts)
                         messages_pane.innerHTML = msgtexts = msgtext_tmp;
                     tick();
