@@ -130,3 +130,68 @@
     border: none;
     cursor: pointer;
 }
+#message::placeholder {
+    font-size: 3vh;
+    text-align: center;
+    text-align: justify;
+    font-family: roboto condensed, sans-serif;
+    padding-left: 1%;
+}
+#message {
+    margin-top: 2vh;
+    width: 20vw;
+    height: 5vh;
+    font-size: 3vh;
+    text-align: center;
+    text-align: justify;
+    font-family: roboto condensed, sans-serif;
+    padding-left: 1%;
+    background-color: rgba(229, 255, 254, .7); 
+ }
+#messages_pane {
+    font-size: 2.7vh; 
+    font-family: roboto condensed, sans-serif;
+    color: rgba(229, 255, 254, .7);
+    display: flex;
+    flex-direction: column-reverse;
+    width: 40vw;
+    /* word-break: break-all; */
+}
+@keyframes col {
+    0%   {color:rgba(26, 146, 142, 0.0636);}
+    10%  {color:rgba(229, 255, 254, .127);}
+    20%  {color:rgba(229, 255, 254, .190);}
+    30% {color:rgba(229, 255, 254, .254);}
+    40%   {color:rgba(229, 255, 254, .318);}
+    50%  {color:rgba(229, 255, 254, .381);}
+    60%  {color:rgba(229, 255, 254, .445);}
+    70% {color:rgba(229, 255, 254, .509);}
+    80%   {color:rgba(229, 255, 254, .572);}
+    90%  {color:rgba(229, 255, 254, .636);}
+    100%  {color:rgba(229, 255, 254, .7);}
+  }
+#messages_scrool {
+    border: 2px solid #000;
+    margin-top: 1.7%;
+    background-color: rgba(22, 27, 27, 0.801);
+}
+#messages_scrool::-webkit-scrollbar {
+    width: 12px;
+}
+#messages_scrool::-webkit-scrollbar-track {
+    background: rgba(229, 255, 254, .5);
+}
+#messages_scrool::-webkit-scrollbar-thumb {
+    background-color: rgba(229, 255, 254, .9);
+}
+.msg {
+    animation-name: col;
+    animation-duration: 1s;
+    word-break: break-all;
+}
+.name {
+  color: rgba(229, 255, 254, .9);
+  width: fit-content;
+  max-width: 15vw;
+}
+

@@ -10,13 +10,14 @@ let recoveryDATA = [];
 let usernameLIST = ["AL6", "al6"];
 let passwordLIST = ["cgsgforever", "CGSGFOREVER"];
 
-app.use(express.static(__dirname + './public'));
+app.use(express.static(__dirname + '/public'));
 
 io.on('connection', (socket) => {
     socket.on('sendMessage', msg => {
         recoveryDATA.push(msg);
         io.emit('getMessage', msg);
     });
+
 
     socket.on('requesRrecovery', code => {
         if (code === "code:30" && recoveryDATA != "")
@@ -33,6 +34,7 @@ io.on('connection', (socket) => {
         }
     })
 
+    /* Logging in user */
     socket.on('getUsrename', data => {
         let loginInd = usernameLIST.indexOf(data.login);
         if (loginInd == -1) {

@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Socket.IO chat</title>
+    <title>Socket.io chat</title>
     <link rel="stylesheet" href="d.css">
     <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript">
@@ -24,7 +24,7 @@
             document.getElementById("message").value = "";
         }
         socket.on('getMessage', msg => {
-            let tbl = document.getElementById("msgwnd");
+            let tbl = document.getElementById("messages_pane");
             tbl.insertAdjacentHTML('beforeend', `<tr class="anim"><td class="name">${msg.username}:</td><td class="msg">${msg.message}</td></tr>`);
             tbl.lastChild.scrollIntoView(false);
         });
@@ -36,7 +36,7 @@
             checkOldFriends();
         }
         socket.on('receiveRecovery', recDATA => {
-            let tbl = document.getElementById("msgwnd");
+            let tbl = document.getElementById("messages_pane");
             tbl.innerHTML = "";
             for (let msg of recDATA) {
                 tbl.insertAdjacentHTML('beforeend', `<tr class="anim"><td class="name">${msg.username}:</td><td class="msg">${msg.message}</td></tr>`);
@@ -47,13 +47,14 @@
 </head>
 
 <body onload="recoveryRequest();">
-    <div class="chatblock">
-        <table id="msgwnd">
-        </table>
-    </div>
-    <div class="send">
-        <input type="text" id="message" onkeypress="runReact(event);">
-        <button onclick="sendMessage();">&#8250;</button>
+    <div id="main_board">
+        <p id="title_chat">Chat</p>
+        <input placeholder="enter message" type="text" id="message" onkeypress="runReact(event)" /><br>
+        <!-- <button onclick="sendMessage();">&#8250;</button> -->
+        <div style="overflow-y: scroll; height: 70vh; width: 50vw;" id="messages_scrool">
+            <table id="messages_pane">
+            </table>
+        </div>
     </div>
 </body>
 
